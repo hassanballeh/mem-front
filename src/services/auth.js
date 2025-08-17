@@ -15,8 +15,13 @@ export const register = async (userData) => {
     const response = await api.post("/auth/register", userData);
     return response.data;
   } catch (error) {
-    // return error.error;
-    throw new Error(error || "Registration failed");
+    const errorMessage =
+      error.response?.data?.message ||
+      error.response?.data?.error ||
+      error.message ||
+      "Registration failed";
+
+    throw new Error(errorMessage);
   }
 };
 

@@ -27,12 +27,11 @@ const Register = () => {
 
     try {
       const response = await register(formData);
-      // authLogin(token, id);
-      console.log("res " + response);
-      // navigate("/");
+      authLogin(response.token, response.id);
+      navigate("/");
     } catch (err) {
-      console.log("s" + err.message);
-      // setError(err);
+      console.log("s" + err);
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }

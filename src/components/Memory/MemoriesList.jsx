@@ -14,7 +14,6 @@ const MemoriesList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { token, userId } = useAuth();
-  
 
   useEffect(() => {
     const loadMemories = async () => {
@@ -131,7 +130,6 @@ const MemoriesList = () => {
                 }`}
           </p>
         </div>
-        {/* Memories List - Full Width Cards */}
         <div className="space-y-6">
           {memories.length === 0 ? (
             <div className="text-center py-16">

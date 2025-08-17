@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-
+import { deleteMemory } from "../../services/memories";
 const MemoryDetail = () => {
   const { token } = useAuth();
   const { state } = useLocation();
@@ -13,9 +13,10 @@ const MemoryDetail = () => {
     if (!token) return;
 
     try {
-      await deleteMemory(memoryId, token);
-      setMemories(memories.filter((memory) => memory.id !== memoryId));
+      await deleteMemory(memoryId);
+      navigate("/");
     } catch (err) {
+      setError(err);
       console.error("Delete error:", err);
     }
   };
@@ -165,7 +166,7 @@ const MemoryDetail = () => {
 
               {canDelete && (
                 <button
-                  onClick={handleDelete}
+                  onClick={() => handleDelete(memory.id)}
                   className="text-white border-none hover:text-red-700! hover:border-none! "
                 >
                   <svg

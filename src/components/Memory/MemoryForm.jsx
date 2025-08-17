@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
 import { createMemory } from "../../services/memories";
 
 const MemoryForm = ({ onMemoryCreated }) => {
@@ -8,7 +7,6 @@ const MemoryForm = ({ onMemoryCreated }) => {
   const [images, setImages] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  const { token } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +20,7 @@ const MemoryForm = ({ onMemoryCreated }) => {
       setDescription("");
       setImages([]);
     } catch (err) {
+      console.log(err);
       setError(err.message);
     } finally {
       setIsSubmitting(false);
@@ -64,6 +63,7 @@ const MemoryForm = ({ onMemoryCreated }) => {
           Description
         </label>
         <textarea
+          required
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[100px] text-gray-700"
@@ -83,6 +83,7 @@ const MemoryForm = ({ onMemoryCreated }) => {
             file:text-sm file:font-semibold
             file:bg-indigo-50 file:text-indigo-700
             hover:file:bg-indigo-100"
+          required
         />
 
         {images.length > 0 && (
